@@ -1,0 +1,22 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DPICO_BOARD=pico2_w",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "environments": [
+        {
+          "PICO_SDK_PATH": "C:\\pico-sdk",
+          "PICO_TOOLCHAIN_PATH": "C:\\arm-gnu-toolchain-15.2.rel1-mingw-w64-i686-arm-none-eabi"
+        }
+      ],
+      "cmakeToolchain": "C:/pico-sdk/cmake/preload/toolchains/pico_arm_cortex_m33_gcc.cmake"
+    }
+  ]
+}
