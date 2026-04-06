@@ -8,14 +8,15 @@ mass = 95
 time_interval = 0.01    #remove and calculate time interval instead
 
 #Loops - do not touch
-iteration = 2
+iteration = 1
 flag = 0
 max_torque_flag = 0
 
 try:
     data = pandas.read_csv("src/sample_IMU_data.csv")
+    total_iterations = len(data)
 
-    while (flag == 0):
+    while (iteration < total_iterations): 
         time_collected = data.iat[1, iteration]
         acromion_accel_x = data.iat[2, iteration]
         acromion_accel_y = data.iat[3, iteration]
