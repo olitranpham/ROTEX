@@ -2,17 +2,6 @@ import time
 import math
 import pandas       #note you will need to install pandas. Use command "pip install pandas" in terminal
 
-'''
-acromion_accel_x = 1
-acromion_accel_y = 2
-acromion_accel_z = 3
-acromion_angular_vel = 7
-epicondyle_accel_x = 4
-epicondyle_accel_y = 5
-epicondyle_accel_z = 6
-epicondyle_angular_vel = 8
-'''
-
 #User inputted variables
 max_torque = 0.2        #actual value 46.1
 mass = 95
