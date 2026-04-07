@@ -19,6 +19,11 @@ try:
     data = pandas.read_csv("src/sample_IMU_data.csv")
     total_iterations = len(data)
 
+    #calculate arm mass
+    arm_mass = (mass * 0.453592 * 0.0575)
+    print(f"Arm mass: {arm_mass}")
+
+    #get data from CSV for one specific time
     while (iteration < total_iterations): 
         time_collected = data.iat[1, iteration]
         acromion_accel_x = data.iat[2, iteration]
@@ -30,35 +35,33 @@ try:
         epicondyle_accel_z = data.iat[8, iteration]
         epicondyle_angular_vel = data.iat[9, iteration]
 
+        #calculate net acceleration and net force
         net_accel = math.sqrt(((epicondyle_accel_x - acromion_accel_x) ** 2) + ((epicondyle_accel_y - acromion_accel_y) ** 2) + ((epicondyle_accel_z - acromion_accel_z) ** 2))
         print(f"Net acceleration: {net_accel}")
-
-        arm_mass = (mass * 0.453592 * 0.0575)
-        print(f"Arm mass: {arm_mass}")
-
         net_force = (arm_mass * net_accel)
         print(f"Net force: {net_force}")
 
+        #calculate angular velocity, angle, and net torque
         angular_vel = (epicondyle_angular_vel * 180 / 3.14159)
         angle = (angular_vel * time_interval)
         torque = abs(net_force * 0.290 * math.sin(angle))
         print(f"Torque: {torque}")
-        
         print(" ")
 
+        #set indicators for max torque
         if torque > max_torque:
             max_torque_flag = max_torque_flag + 1
             max_torque_timer = max_loop_iterations
             print("Error: max torque exceeded.")
             print(" ")
 
+        #set indicators for LED/Haptic
         if max_torque_timer > 0:
             print(f'LED / Haptic active. {max_torque_timer} iteration(s) until turned off.')
             print(" ")
             max_torque_timer = max_torque_timer - 1
 
         iteration = iteration + 1
-
         time.sleep(1)
 
 except KeyboardInterrupt:       #ctrl + c
