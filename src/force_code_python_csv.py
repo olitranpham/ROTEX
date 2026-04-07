@@ -6,13 +6,16 @@ import pandas           #note you will need to install pandas. Use command "pip 
 max_torque = 0.2        #actual value 46.1
 mass = 95
 time_interval = 0.01    #remove and calculate time interval instead
+max_loop_iterations = 2 #sets how long the excessive torque timer lasts
 
 #Loops - do not touch
 iteration = 1
 flag = 0
 max_torque_flag = 0
+max_torque_timer = 0
 
 try:
+    #read CSV file and find total number of columns
     data = pandas.read_csv("src/sample_IMU_data.csv")
     total_iterations = len(data)
 
@@ -45,8 +48,14 @@ try:
 
         if torque > max_torque:
             max_torque_flag = max_torque_flag + 1
+            max_torque_timer = max_loop_iterations
             print("Error: max torque exceeded.")
             print(" ")
+
+        if max_torque_timer > 0:
+            print(f'LED / Haptic active. {max_torque_timer} iteration(s) until turned off.')
+            print(" ")
+            max_torque_timer = max_torque_timer - 1
 
         iteration = iteration + 1
 
